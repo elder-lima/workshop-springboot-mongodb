@@ -1,5 +1,6 @@
 package com.elder.workshopmongo.resources;
 
+import com.elder.workshopmongo.domain.Post;
 import com.elder.workshopmongo.domain.User;
 import com.elder.workshopmongo.dto.UserDTO;
 import com.elder.workshopmongo.services.UserService;
@@ -54,6 +55,12 @@ public class UserResource {
         obj.setId(id); // na converção de DTO para user o id fica null
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 
 }
